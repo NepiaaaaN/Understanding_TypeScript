@@ -9,7 +9,7 @@
 ## 毎回ディレクトリを作成する時に必要となる手順
 
 1. `template`ディレクトリをコピー
-2. 新規に名前をつける(`UUNDERSTANDING-TS_section○`)
+2. 新規に名前をつける(`UNDERSTANDING-TS_section*`)
 3. そのディレクトリ内で`npm install`を実施する
    - そうすることで自動で必要なパッケージ(主に`lite-server`)が install される
 
