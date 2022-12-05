@@ -28,4 +28,5 @@
 ```sh
 git add -A
 git cz
+git push origin main
 ```
