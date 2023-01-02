@@ -11,9 +11,10 @@
 //   data.split(' ');
 // });
 
-function merge<T extends {}, U>(objA: T, objB: U) {
+// extends objectとすることにより、制約を付けることが可能
+function merge<T extends object, U extends object>(objA: T, objB: U) {
   return Object.assign(objA, objB);
 }
 
-const mergedObj = merge({ name: "Max" }, { age: 30 });
-console.log(mergedObj.age);
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
+console.log(mergedObj);
