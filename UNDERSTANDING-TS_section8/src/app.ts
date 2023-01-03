@@ -1,10 +1,12 @@
 // ライブラリのデコレータは大文字から始まることが多い
-const Logger = (constructor: Function) => {
-  console.log("ログ出力中...");
-  console.log(constructor);
+const Logger = (logString: string) => {
+  return (constructor: Function) => {
+    console.log(logString);
+    console.log(constructor);
+  };
 };
 
-@Logger
+@Logger("ログ出力中 - PERSON")
 class Person {
   name = "Max";
 
