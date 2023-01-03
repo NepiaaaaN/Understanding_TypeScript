@@ -51,3 +51,9 @@
   - ユーティリティ型は常に Generics
 - 参考リンク
   - [全てのユーティリティ型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+
+## 103. Generic 型 vs Union 型
+
+- Union 型は関数が呼ばれた時に、毎回そのうちのいずれかの型を受け入れる場合に向いている
+- Generic 型は class の全体でいずれか一つの型に固定したい場合に向いている
+- 関数の場合も同様。

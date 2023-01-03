@@ -46,6 +46,9 @@ console.log(extractAndConvert({ name: "Max" }, "name"));
 class DataStorage<T extends string | number | boolean> {
   private data: T[] = [];
 
+  // Union型だとこうなる
+  // private data: (string[] | number[] | boolean[]) = [];
+
   addItem(item: T) {
     this.data.push(item);
   }
