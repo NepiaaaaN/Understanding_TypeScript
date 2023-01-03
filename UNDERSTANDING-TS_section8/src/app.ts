@@ -6,7 +6,17 @@ const Logger = (logString: string) => {
   };
 };
 
-@Logger("ログ出力中 - PERSON")
+const WithTemplate = (template: string, hookId: string) => {
+  return (_: Function) => {
+    const hookEl = document.getElementById(hookId);
+    if (hookEl) {
+      hookEl.innerHTML = template;
+    }
+  };
+};
+
+// @Logger("ログ出力中 - PERSON")
+@WithTemplate("<h1>Personオブジェクト</h1>", "app")
 class Person {
   name = "Max";
 
