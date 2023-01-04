@@ -49,7 +49,7 @@ const Log = (target: any, propertyName: string | Symbol) => {
 };
 
 const Log2 = (target: any, name: string, descriptor: PropertyDescriptor) => {
-  console.log("Accssor デコレータ");
+  console.log("Accessor デコレータ");
   console.log(target);
   console.log(name);
   console.log(descriptor);

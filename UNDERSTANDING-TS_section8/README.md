@@ -83,3 +83,19 @@
 - new キーワードを使って、「これはオブジェクトだが、new キーワードを使ってインスタンスを作れるものです」と TypeScript に伝えることが出来る
 - コンストラクタを返すことにより、コンストラクタ関数の置き換えが出来る
   - これによってインスタンス化された際に実行されるデコレータの作成が出来る
+
+## 114. その他のデコレータの返却値
+
+- Method デコレータ、Accessor デコレータで値を返すことが出来る
+- [propertyDesctiptor についての詳細](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+- Method デコレータの propertyDescriptor について
+  - value プロパティ
+    - 入っている値
+  - writable プロパティ
+    - value プロパティに割り当てられている値、もしくは関数が書き込み可能がどうかを制御する
+  - configurable プロパティ
+    - プロパティの設定を変更したり、削除したり出来るかということを制御出来る
+  - enumerable プロパティ
+    - オブジェクトをループした時に、このプロパティが出力されるかどうかを制御出来る
+- これを書き換えて返せば、class に存在するメソッドの情報を書き換えることが可能となる
+- Accessor を書き換えても面白くないが、Method デコレータで値を返すことによって面白いものを作ることが出来る
