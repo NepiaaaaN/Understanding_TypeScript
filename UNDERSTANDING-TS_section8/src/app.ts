@@ -9,12 +9,20 @@ const Logger = (logString: string) => {
 
 const WithTemplate = (template: string, hookId: string) => {
   console.log("TEMPLATE ファクトリ");
-  return (_: Function) => {
-    console.log("テンプレートを表示");
-    const hookEl = document.getElementById(hookId);
-    if (hookEl) {
-      hookEl.innerHTML = template;
-    }
+  return <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) => {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super(); // 古いコンストラクタ関数を実行
+        console.log("テンプレートを表示");
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector("h1")!.textContent = this.name;
+        }
+      }
+    };
   };
 };
 
