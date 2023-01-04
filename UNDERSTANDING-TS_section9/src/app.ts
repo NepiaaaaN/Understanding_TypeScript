@@ -1,3 +1,21 @@
+// autobind decorator
+const Autobind = (
+  _target: any,
+  _methodName: string,
+  descriptor: PropertyDescriptor
+) => {
+  const originalMethod = descriptor.value;
+  const adjDesctiptor: PropertyDescriptor = {
+    configurable: true,
+    get() {
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    },
+  };
+  return adjDesctiptor;
+};
+
+// ProjectInput Class
 class ProjectInput {
   // Code goes here!
   templateElement: HTMLTemplateElement;
@@ -22,7 +40,7 @@ class ProjectInput {
     this.element.id = "user-input";
 
     this.titleInputElement = this.element.querySelector(
-      "#title" // TODO ここ、#なしで出来るのか試す
+      "#title"
     ) as HTMLInputElement;
     this.descriptionInputElement = this.element.querySelector(
       "#description"
@@ -35,6 +53,7 @@ class ProjectInput {
     this.attach();
   }
 
+  @Autobind
   private submitHandler(event: Event) {
     event.preventDefault();
     console.log(this.titleInputElement.value);
@@ -42,7 +61,7 @@ class ProjectInput {
 
   // イベントリスナの設定
   private configure() {
-    this.element.addEventListener("submit", this.submitHandler.bind(this));
+    this.element.addEventListener("submit", this.submitHandler);
   }
 
   // 要素を追加
