@@ -6,3 +6,7 @@
 - [trim メソッドについて](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/trim)
   - trim()メソッドは文字列の両端の空白を削除する
   - これで空白かどうかを判断している
+
+## 疑問
+
+- interface と type の違いってなに？
