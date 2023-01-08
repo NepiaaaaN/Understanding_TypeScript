@@ -9,4 +9,18 @@
 
 ## 疑問
 
-- interface と type の違いってなに？
+- [x] interface と type の違いってなに？
+- [参考](https://zenn.dev/luvmini511/articles/6c6f69481c2d17)
+- まぁ、とりあえず、interface 使っておけば問題ないかな
+- というくらいのほぼ違いはない
+
+- [x] ul と li の違いがわかっていない
+- ul(Unordered List)は li を挟むタグ。 [参考](https://saruwakakun.com/html-css/basic/ul-ol-li)
+
+```html
+<ul>
+  <li>1つ目の項目</li>
+  <li>2つ目の項目</li>
+  <li>3つ目の項目</li>
+</ul>
+```
