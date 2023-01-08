@@ -6,6 +6,8 @@
 - [trim メソッドについて](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/trim)
   - trim()メソッドは文字列の両端の空白を削除する
   - これで空白かどうかを判断している
+- getter 関数
+  - 何らかのデータを取得したい時に、なにか変更を加えたものを取得することが出来る
 
 ## 疑問
 
