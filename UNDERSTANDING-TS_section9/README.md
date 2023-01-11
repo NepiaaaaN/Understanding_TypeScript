@@ -8,6 +8,7 @@
   - これで空白かどうかを判断している
 - getter 関数
   - 何らかのデータを取得したい時に、なにか変更を加えたものを取得することが出来る
+- [ドラッグ&ドロップ API](https://developer.mozilla.org/ja/docs/Web/API/HTML_Drag_and_Drop_API)
 
 ## 疑問
 
