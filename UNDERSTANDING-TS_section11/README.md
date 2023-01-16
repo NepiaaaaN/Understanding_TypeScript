@@ -1,31 +1,113 @@
-# UNDERSTANDING-TS_section9
+# UNDERSTANDING-TS_section11
 
-- [template タグについて](https://qiita.com/saka212/items/ac77e778b7e323749e61)
-  - template タグは書くだけでは表示されない。
-  - ブラウザで表示するには、JavaScript を使用する必要がある
-- [trim メソッドについて](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/trim)
-  - trim()メソッドは文字列の両端の空白を削除する
-  - これで空白かどうかを判断している
-- getter 関数
-  - 何らかのデータを取得したい時に、なにか変更を加えたものを取得することが出来る
-- [ドラッグ&ドロップ API](https://developer.mozilla.org/ja/docs/Web/API/HTML_Drag_and_Drop_API)
+## 153. Webpack とは何か & なぜ必要なのか
 
-## 疑問
+- Webpack とは？
+  - モジュールバンドラ 及び ビルド自動化ツール
+- Webpack をつかって出来ること
+  - 複数のファイルを一つのバンドルにまとめることが可能
+    - 1 つのファイルにまとめることにより少ない HTTP リクエストで済む
+  - コードの最適化(ミニファイ)
+    - 小さいファイルサイズになる
+      - 関数名をより省略したり...
+  - 追加のビルドステップを入れることが出来る
+    - 開発用サーバをビルドステップに入れることが可能
 
-- [x] interface と type の違いってなに？
-- [参考](https://zenn.dev/luvmini511/articles/6c6f69481c2d17)
-- まぁ、とりあえず、interface 使っておけば問題ないかな
-- というくらいのほぼ違いはない
+## 154. Webpack のインストール & 重要な依存パッケージ
 
-- [x] ul と li の違いがわかっていない
-- ul(Unordered List)は li を挟むタグ。 [参考](https://saruwakakun.com/html-css/basic/ul-ol-li)
+- インストールコマンド
 
-```html
-<ul>
-  <li>1つ目の項目</li>
-  <li>2つ目の項目</li>
-  <li>3つ目の項目</li>
-</ul>
+```NPM Config
+npm install --save-dev webpack webpack-cli webpack-dev-server typescript ts-loader
 ```
 
+- パッケージの説明
 
+```JSON
+  "devDependencies": {
+    "lite-server": "^2.5.4",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+```
+
+- `webpack`
+  - 153 で説明した通りのツール
+- `webpack-cli`
+  - Webpack のコマンドをプロジェクトで実行するために必要
+- `webpack-dev-server`
+  - 開発用のウェブサーバー
+  - 裏で Webpack を実行する。ファイルを常に監視し、変更があれば Webpack を使って再コンパイルを行う
+  - これによりブラウザからアプリケーションを実行することが可能
+- `typescript`
+  - `typescript`はこのマシンにインストール済みだが、プロジェクト単位で TypeScript をインストールしておくのはよいこと。
+    - TypeScript のバージョンを明示的に指定できるため。
+    - もしグローバルの TypeScript のバージョンに破壊的変更があっても、プロジェクトとしては影響を受けないから
+- `ts-loader`
+  - Webpack が TypeScript を JavaScript に変換する方法を知るためのパッケージ
+  - これにより Webpack が JavaScript へのコンパイルを行うことが出来る
+  - その裏では`typescript`が使われる
+
+## 155. エントリポイントと出力設定
+
+### `tsconfig.json`
+
+- `target`は`es6`または`es5`
+  - `ts-loader`も TypeScript をコンパイルする時にこの設定を使う
+  - 古いブラウザでも動かすとき → es5
+  - モダンなブランさだけで動かすとき → es6
+- `module`は`ES2015`を指定
+  - これは`es6`と同じ意味
+- `outDir`
+  - `./dist`のままにしておく
+- `rootDir`
+  - 設定は不要。コメントアウトにしておく
+  - どのディレクトリがルートかという設定は Webpack 側で行う
+
+### weboack.config.js
+
+- tsconfig.json と同じ階層に作成する
+- webpack がどのように動作するかを設定するためのファイル
+- このファイルでは JavaScript を使用する
+  - 実際には Node.js で実行される
+  - よって、Node.js の export の構文を使う
+
+```JavaScript
+module.exports = {}; // このオブジェクトがWebpackの設定になる
+```
+
+- Webpack の import の特徴
+  - ブラウザに組み込まれたビルトインの ES6 モジュールの機能で JavaScript を import する場合には import するファイル名に`.js`が必要だった
+  - Webpack は.js という拡張子や、他の拡張子のファイルを自動的に探して取得するため不要
+  - 指定してしまうと逆に Webpack が拡張子が二重になったファイル名を探してしまう
+- webpack.config.js の設定
+  - entry
+    - エントリーポイントのファイルを設定(一番最初に読み込まれるべきファイル)
+  - output
+    - filename
+      - 最終的に出力されるファイル名
+    - path
+      - 出力されるフォルダへのパス
+      - これは`tsconfig`の`outDir`と一緒のパスを指定しないといけない
+        - 絶対 path を指定する必要がある
+        - webpack.config.js と同じ階層にある dist フォルダの絶対 path を取得するコードが以下
+
+```JavaScript
+const path = require("path"); // ★node.jsのimportの構文
+
+module.exports = {
+  output: {
+    path: path.resolve(__dirname, "dist"), // resolveで指定したpathを順番に解決した絶対pathを取得
+    // __dirnameはnode.jsでグローバルに使える定数
+    // このファイルにあるpathを取得することが出来る
+  },
+};
+```
+
+## 156. ts-loader の利用
+
+- module オブジェクト
+  - Webpack が見つけたファイルに対して何をするかということを指定する
