@@ -27,3 +27,8 @@ npm install --save @types/lodash
 - 宣言ファイルは開発中のみ必要
 - 最終的には JavaScript にコンパイルされるので、本番には必要ない
   - よって、`--save-dev`と変更する
+
+## 165. 最後の手段としての"declare"の利用
+
+- アンビエント宣言(declare)
+  - JavaScript コードから提供される変数や関数等の方を宣言し、TypeScript で使用することが出来る
