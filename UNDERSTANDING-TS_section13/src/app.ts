@@ -2,8 +2,9 @@ import axios from "axios";
 import { GOOGLE_API_KEY } from "./APIKEY";
 
 const script = document.createElement("script");
-script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&callback=initMap`;
+script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}`;
 script.defer = true;
+script.async = true;
 document.head.appendChild(script);
 
 const form = document.querySelector("form")!;
@@ -15,8 +16,7 @@ type GoogleGeocodingResponse = {
   status: "OK" | "ZERO_RESULTS";
 };
 
-declare let google: any;
-// function initMap() {}
+// declare let google: any;
 
 const searchAddressHandler = (event: Event) => {
   event.preventDefault(); // formがHTTPリクエストを送らないように設定
@@ -34,11 +34,12 @@ const searchAddressHandler = (event: Event) => {
         throw new Error("座標を取得出来ませんでした。");
       }
       const coordinates = response.data.results[0].geometry.location;
-      const map = new google.maps.Map(document.getElementById("map"), {
+      const map = new google.maps.Map(document.getElementById("map")!, {
         center: coordinates,
         zoom: 16,
       });
 
+      /** マーカーの表示 */
       new google.maps.Marker({
         position: coordinates,
         map: map,

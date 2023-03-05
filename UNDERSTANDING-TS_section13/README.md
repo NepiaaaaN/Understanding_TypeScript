@@ -22,7 +22,8 @@
 - `&callback=initMap`はマップがロードされた時に呼び出される関数を指定するもの
   - 今回は必要ないので消す
 - マーカーを追加するには[こちらのサイト](https://developers.google.com/maps/documentation/javascript/adding-a-google-map?hl=ja)を参考にする
+- google.maps の型情報は npm で配布されているので、それをインストールする
 
-## メモ
-
-- これはまだコミットしてはいけない！！API キーがダダ漏れになる！！！
+```console
+npm install --save-dev @types/googlemaps
+```
